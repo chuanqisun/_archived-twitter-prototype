@@ -26,6 +26,7 @@
 
 				//confirm success
 				echo '<p>Sign up success!</p>';
+				echo '<a href="login.html">click here to login</a>';
 			
 				mysqli_close($dbc);
 				exit();
