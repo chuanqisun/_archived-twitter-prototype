@@ -1,8 +1,9 @@
 <?php 
 	
+	require_once('connectvars.php');
 	
 	//connect to database
-	$dbc=mysqli_connect('localhost', 'root', 'testpassword', 'g_prototype') or die('Error connecting to MySQL server.');
+	$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL server.');
 
 	{		
 		//extract profile from sign-up form

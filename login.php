@@ -1,5 +1,7 @@
 <?php
 
+	require_once('connectvars.php');
+
 	//start session
 	session_start();
 	
@@ -11,11 +13,15 @@
 		if (isset($_POST['submit'])){
 
 			//connect to database
-			$dbc=mysqli_connect('localhost', 'root', 'testpassword', 'g_prototype') or die('Error connecting to MySQL database');
+			$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL database');
 	
 			//extract data from the form
 			$username=$_POST['username'];
 			$password=$_POST['password'];
+
+			//sanitize ---------this doesn't work--------------
+			//$username=mysql_real_escape_string($dbc, trim($username));
+			//$password=mysql_real_escape_string($dbc, trim($password));
 
 			if (!empty($username) && !empty($password)){
 				$query="SELECT id, username FROM users WHERE username='$username' AND password=SHA('$password')";
