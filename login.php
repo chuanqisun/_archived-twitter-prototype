@@ -9,31 +9,31 @@
 	$error_msg="";
 
 	//if not logged in
-	if (!isset($_SESSION['id'])){
+	if (!isset($_SESSION['u_id'])){
 		if (isset($_POST['submit'])){
 
 			//connect to database
 			$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL database');
 	
 			//extract data from the form
-			$username=$_POST['username'];
-			$password=$_POST['password'];
+			$u_name=$_POST['u_name'];
+			$u_pass=$_POST['u_pass'];
 
 			//sanitize ---------this doesn't work--------------
 			//$username=mysql_real_escape_string($dbc, trim($username));
 			//$password=mysql_real_escape_string($dbc, trim($password));
 
-			if (!empty($username) && !empty($password)){
-				$query="SELECT id, username FROM users WHERE username='$username' AND password=SHA('$password')";
+			if (!empty($u_name) && !empty($u_pass)){
+				$query="SELECT u_id, u_name FROM users WHERE u_name='$u_name' AND u_pass=SHA('$u_pass')";
 				$data=mysqli_query($dbc, $query);
 
 				if (mysqli_num_rows($data)==1) {
 					$row=mysqli_fetch_array($data);
-					$_SESSION['id'] = $row['id']; 
-					$_SESSION['username'] = $row['username'];
+					$_SESSION['u_id'] = $row['u_id']; 
+					$_SESSION['u_name'] = $row['u_name'];
 
-					setcookie('id', $row['id'], time() + (60*60*24*30)); 
-					setcookie('username', $row['username'], time() + (60*60*24*30));
+					setcookie('u_id', $row['u_id'], time() + (60*60*24*30)); 
+					setcookie('u_name', $row['u_name'], time() + (60*60*24*30));
 
 					header('Location: http://localhost/g/mygene.php');
 					
@@ -50,11 +50,11 @@
 
 
 	//if login failed
-	if (empty($_SESSION['id'])) {
+	if (empty($_SESSION['u_id'])) {
 		echo '<p class=error">'.$error_msg.'</p>';
 	}
 	//if login success
 	else{
-		echo'<p class="login">You are logged in as ' . $_SESSION['username'] . '.</p>';
+		echo'<p class="login">You are logged in as ' . $_SESSION['u_name'] . '.</p>';
 	}
 ?>

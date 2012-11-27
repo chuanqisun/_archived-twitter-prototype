@@ -7,30 +7,30 @@
 
 	{		
 		//extract profile from sign-up form
-		$username=$_POST['username'];
-		$password1=$_POST['password1'];
-		$password2=$_POST['password2'];
+		$u_name=$_POST['u_name'];
+		$u_pass1=$_POST['u_pass1'];
+		$u_pass2=$_POST['u_pass2'];
 
 
-		if(!empty($username) && !empty($password1) && !empty($password2) 
-		&& ($password1==$password2)){
+		if(!empty($u_name) && !empty($u_pass1) && !empty($u_pass2) 
+		&& ($u_pass1==$u_pass2)){
 
 			//check uniqueness of username
-			$query="SELECT * FROM users WHERE username='$username'";
+			$query="SELECT * FROM users WHERE u_name='$u_name'";
 
 			$data=mysqli_query($dbc, $query);
 			if(mysqli_num_rows($data)==0){
 				//username is unique, append to user talbe
-				$query="INSERT INTO users (username, password, gene_count) VALUES ('$username', SHA('$password1'), '0')";
+				$query="INSERT INTO users (u_name, u_pass) VALUES ('$u_name', SHA('$u_pass1'))";
 				mysqli_query($dbc, $query) or die('Error insertion into user table');
 
 				//get user id
-				$query="SELECT id FROM users WHERE username='$username'";
+				$query="SELECT u_id FROM users WHERE u_name='$u_name'";
 				$row=mysqli_fetch_array(mysqli_query($dbc, $query));
-				$id=$row['id'];
+				$u_id=$row['u_id'];
 				
 				//create user's individual gene bank
-				$query="CREATE TABLE user_$id (gene_id int NOT NULL UNIQUE, name varchar(255) NOT NULL UNIQUE, expression text NOT NULL, PRIMARY KEY (id))";
+				$query="CREATE TABLE genes_of_user_$u_id (g_id int NOT NULL, g_expression text NOT NULL)";
 				mysqli_query($dbc, $query) or die('Error create user\'s gene bank');
 
 				//confirm success
@@ -48,6 +48,7 @@
 		//data invalid
 		else{
 			echo '<p>Invalid username or password</p>';
+			echo "$u_name $u_pass1 $u_pass2";
 		}
 	}
 	mysqli_close($dbc);

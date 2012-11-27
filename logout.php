@@ -2,7 +2,7 @@
 	
 	session_start();
 	
-	if(isset($_SESSION['id'])){
+	if(isset($_SESSION['u_id'])){
 		//delete session variables
 		$_SESSION=array();
 	}
@@ -16,8 +16,8 @@
 	session_destroy();
 
 	//delete user cookie
-	setcookie('id', '', time()-3600);
-	setcookie('username', '', time()-3600);
+	setcookie('u_id', '', time()-3600);
+	setcookie('u_name', '', time()-3600);
 	
-	header('Location: http://localhost/g/login.html');
+	header('Location: http://localhost/g/mygene.php');
 ?>
