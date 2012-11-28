@@ -27,10 +27,18 @@
 		$u_id=$_SESSION['u_id'];
 		$query="SELECT genes.g_name, genes_of_user_$u_id.g_expression FROM genes INNER JOIN genes_of_user_$u_id ON genes.g_id=genes_of_user_$u_id.g_id";
 		$data=mysqli_query($dbc, $query) or die('Error retrieving user\'s genes');
+		echo '<table border="0">';
+		echo '<tr><th>Gene</th><th>Expression</th></tr>';
 		while($row = mysqli_fetch_array($data)){
-			echo $row['g_name'] . " " . $row['g_expression'];
-			echo "<br />";
+			echo '<tr>';
+			echo '<td>';
+			echo $row['g_name'];
+			echo '</td>';
+			echo '<td>';
+			echo $row['g_expression'];
+			echo '</td>';
 		}	
+		echo '</table>';
 	}
 ?>
 

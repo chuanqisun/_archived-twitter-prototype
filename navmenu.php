@@ -5,9 +5,11 @@
 	if(isset($_SESSION['u_name'])){
 		echo '<a href="index.php">Home</a>';
 		echo ' | ';
-		echo '<a href="newgene.php">New Gene</a>';
+		echo '<a href="evolve.php">Evolve</a>';
 		echo ' | ';
-		echo '<a href="compare.php">Compare Genes</a>';
+		echo '<a href="compare.php">Compare</a>';
+		echo ' | ';
+		echo '<a href="explore.php">Explore</a>';
 		echo ' | ';
 		echo '<a href="mygene.php">My Genes</a>';
 		echo ' | ';
