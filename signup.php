@@ -30,7 +30,7 @@
 				$u_id=$row['u_id'];
 				
 				//create user's individual gene bank
-				$query="CREATE TABLE genes_of_user_$u_id (g_id int NOT NULL, g_expression text NOT NULL)";
+				$query="CREATE TABLE genes_of_user_$u_id (g_id int NOT NULL, g_expression text NOT NULL, UNIQUE (g_id))";
 				mysqli_query($dbc, $query) or die('Error create user\'s gene bank');
 
 				//confirm success
