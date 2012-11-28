@@ -48,7 +48,6 @@
 		//data invalid
 		else{
 			echo '<p>Invalid username or password</p>';
-			echo "$u_name $u_pass1 $u_pass2";
 		}
 	}
 	mysqli_close($dbc);

@@ -22,15 +22,15 @@
 	}
 
 	//if logged in and already posted
-	else if (isset($_POST['submit'])){
+	else if (isset($_GET['submit'])){
 		//Connect to database
 		require_once('connectvars.php');
 		$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL Database');
 		
 		//parse geneinfo
 		$u_id=$_SESSION['u_id'];
-		$g_name=$_POST['g_name'];
-		$g_expression=$_POST['g_expression'];
+		$g_name=$_GET['g_name'];
+		$g_expression=$_GET['g_expression'];
 		
 		if(!empty($g_name) && !empty($g_expression)){
 				
@@ -43,8 +43,6 @@
 				//insert into gene bank
 				$query="INSERT INTO genes (g_name) VALUES ('$g_name')";
 				mysqli_query($dbc, $query);
-			}else{  //gene already exists
-			echo "old gene in genes bank";	
 			}
 
 
@@ -74,7 +72,10 @@
 			mysqli_query($dbc, $query) or die('Error insert into user\'s own table');
 			//echo "u_id=$u_id g_id=$g_id g_exp=$g_expression";
 			
-			
+			//redirect to my gene
+			$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/mygene.php';
+			header('Location: ' . $home_url);
+	
 		}else{
 			$error_msg= 'Sorry Please fill in both name and expression before adding';
 		} 
@@ -85,7 +86,7 @@
 	
 ?>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset>
 		<legend>New Gene</legend>
 		<label for="g_name">Gene Name:</label>

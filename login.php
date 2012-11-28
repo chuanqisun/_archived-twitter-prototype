@@ -35,7 +35,8 @@
 					setcookie('u_id', $row['u_id'], time() + (60*60*24*30)); 
 					setcookie('u_name', $row['u_name'], time() + (60*60*24*30));
 
-					header('Location: http://localhost/g/mygene.php');
+					$home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+					header('Location: ' . $home_url);
 					
 				}
 				else{
