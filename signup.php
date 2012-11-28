@@ -9,9 +9,8 @@
 
 		//extract profile from sign-up form
 		$u_name=$_POST['u_name'];
-		$u_pass1=$_POST['u_pass1'];
-		$u_pass2=$_POST['u_pass2'];
-
+		$u_pass1=mysqli_real_escape_string($dbc, trim($_POST['u_pass1']));
+		$u_pass2=mysqli_real_escape_string($dbc, trim($_POST['u_pass2']));
 
 		if(!empty($u_name) && !empty($u_pass1) && !empty($u_pass2) 
 		&& ($u_pass1==$u_pass2)){

@@ -20,8 +20,8 @@
 			$u_pass=$_POST['u_pass'];
 
 			//sanitize ---------this doesn't work--------------
-			//$username=mysql_real_escape_string($dbc, trim($username));
-			//$password=mysql_real_escape_string($dbc, trim($password));
+			$username=mysqli_real_escape_string($dbc, trim($username));
+			$password=mysqli_real_escape_string($dbc, trim($password));
 
 			if (!empty($u_name) && !empty($u_pass)){
 				$query="SELECT u_id, u_name FROM users WHERE u_name='$u_name' AND u_pass=SHA('$u_pass')";

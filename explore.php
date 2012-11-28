@@ -30,7 +30,7 @@
 		$type=$_GET['type'];
 		//explore user
 		if (($type == 'u_name') && ($_GET['name'] != '')){
-			$u_name=$_GET['name'];
+			$u_name=mysqli_real_escape_string($dbc, trim($_GET['name']));
 
 			//get u_id of tartget user name
 			$query="SELECT u_id FROM users WHERE u_name='$u_name'";
@@ -53,8 +53,8 @@
 				while($row = mysqli_fetch_array($data)){
 					echo '<tr>';
 					echo '<td>';
-					echo $row['g_name'];
 					echo '(<a href="evolve.php?g_name=' . $row['g_name'] . '">evolve</a>)';
+					echo $row['g_name'];
 					echo '</td>';
 					echo '<td>'. $row['g_expression'] . '</td>';
 					echo '</tr>';
@@ -89,10 +89,10 @@
 				while($row = mysqli_fetch_array($data)){
 					echo '<tr>';
 					echo '<td>';
-					echo $row['u_name'];
 					echo '(<a href="compare.php?u_name=' . $row['u_name'] . '&submit=Compare">compare</a>';
 					echo '|';
 					echo '<a href="explore.php?type=u_name&name=' . $row['u_name'] . '&submit=Explore">explore</a>)';
+					echo $row['u_name'];
 					echo '</td>';
 					//get the last expression of u_name on this gene
 					$u_id=$row['u_id'];

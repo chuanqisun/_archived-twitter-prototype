@@ -31,7 +31,7 @@
 		$u_id1=$_SESSION['u_id']; //my id
 		$u_name1=$_SESSION['u_name'];
 
-		$u_name2=$_GET['u_name'];
+		$u_name2= mysqli_real_escape_string($dbc, trim($_GET['u_name']));
 		
 		//get target id
 		$query="SELECT u_id FROM users WHERE u_name='$u_name2'";
