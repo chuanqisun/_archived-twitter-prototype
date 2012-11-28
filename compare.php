@@ -77,7 +77,7 @@
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset>
-		<legend>Compare Genes</legend>
+		<legend>Compare</legend>
 		<label for="u_name">Target User</label>
 		<input type="text" name="u_name" />
 	</fieldset>
