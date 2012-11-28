@@ -18,7 +18,12 @@
 	if (!isset($_SESSION['u_id'])){
 		echo '<p>Please login to display your genes</p>';
 	}else{
-	
+
+		//dispaly any necessary mesage
+		if (!empty($_GET['msg'])) {
+			echo '<p class="message">' . $_GET['msg'] . '</p>';	
+		}
+
 		//connect to database
 		require_once('connectvars.php');
 		$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL Database');

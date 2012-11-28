@@ -59,3 +59,14 @@
 		echo'<p class="login">You are logged in as ' . $_SESSION['u_name'] . '.</p>';
 	}
 ?>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	<fieldset>
+		<legend>Log In</legend>
+		<label>Username:</label>
+		<input type="text" name="u_name" />
+		<label>Password:</label>
+		<input type="password" name="u_pass" />
+	</fieldset>
+	<input type="submit" value="Log In" name="submit" />
+</form>

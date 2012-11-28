@@ -1,11 +1,12 @@
 <?php 
 	
-	require_once('connectvars.php');
-	
-	//connect to database
-	$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL server.');
+	//prepare empty error message
+	$error_msg = "";
+	if (isset($_POST['submit'])) {	
+		require_once('connectvars.php');
+		//connect to database
+		$dbc=mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL server.');
 
-	{		
 		//extract profile from sign-up form
 		$u_name=$_POST['u_name'];
 		$u_pass1=$_POST['u_pass1'];
@@ -42,13 +43,31 @@
 			}
 			//username not unique
 			else{
-				echo '<p>Account already exists</p>';
+				$error_msg='Account already exists.';
 			}
 		}
 		//data invalid
 		else{
-			echo '<p>Invalid username or password</p>';
+			$error_msg='Invalid username or password.';
 		}
 	}
 	mysqli_close($dbc);
 ?>
+
+
+<?php
+	echo '<p class="error">' . $error_msg . '</p>';
+?>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	<fieldset>
+		<legend>Sign Up</legend>
+		<label>Username: </label>
+		<input type="text" name="u_name" />
+		<label>Password: </label>
+		<input type="password" name="u_pass1" />
+		<label>Confirm Password: </label>
+		<input type="password" name="u_pass2" />
+	</fieldset>
+	<input type="submit" value="Sign Up" name="submit" />
+</form>

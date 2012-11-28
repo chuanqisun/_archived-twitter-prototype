@@ -54,7 +54,7 @@
 					echo '<tr>';
 					echo '<td>';
 					echo $row['g_name'];
-					echo '(<a href="newgene.php?g_name=' . $row['g_name'] . '">add</a>)';
+					echo '(<a href="evolve.php?g_name=' . $row['g_name'] . '">evolve</a>)';
 					echo '</td>';
 					echo '<td>'. $row['g_expression'] . '</td>';
 					echo '</tr>';
@@ -73,7 +73,7 @@
 			$checkgene=mysqli_num_rows($data);
 			if ($checkgene == 0) {
 				$error_msg='Gene ' . $g_name . ' doesn\'t exist.' .
-						   '<a href="newgene.php?g_name=' . $g_name . '">Create</a> it?';
+						   ' <a href="evolve.php?g_name=' . $g_name . '">Create</a> it?';
 			}else{
 				$row=mysqli_fetch_array($data);
 				$g_id=$row['g_id'];
@@ -82,7 +82,7 @@
 						" ON users_of_gene_$g_id.u_id = users.u_id";
 				$data=mysqli_query($dbc, $query) or die ('Error retrieving user\'s genes');
 				echo '<p> Owners of ' . $g_name;
-				echo '<a href="newgene.php?g_name=' . $g_name . '">(add)</a>';
+				echo '<a href="evolve.php?g_name=' . $g_name . '">(evolve)</a>';
 				echo '</p>';
 				echo '<table boarder="0">';
 				echo '<tr><th>User</th><th>Expression<th>';
