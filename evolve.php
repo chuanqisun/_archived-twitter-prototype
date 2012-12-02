@@ -56,7 +56,7 @@
 
 			//fix users_of_gene
 			if ($checkgene == 0) {  //create table when no current table exists
-				$query="CREATE TABLE users_of_gene_$g_id (u_id int NOT NULL UNIQUE)";
+				$query="CREATE TABLE users_of_gene_$g_id (u_id int NOT NULL UNIQUE, g_update_time timestamp NOT NULL DEFAULT NOW())";
 				mysqli_query($dbc, $query) or die('Error create gene\'s own table');
 			}
 
@@ -66,6 +66,9 @@
 			if ($checkuser == 0) { //new owner of the gene
 				$query="INSERT INTO users_of_gene_$g_id (u_id) VALUES ('$u_id')";
 				mysqli_query($dbc, $query) or die('Error insert into gene\'s own talbe');
+			}else{ //old user update gene
+				$query="UPDATE users_of_gene_$g_id SET g_update_time=NOW() WHERE u_id='$u_id'";
+				mysqli_query($dbc, $query) or die('Error update gene time in gene\'s own table');
 			}
 
 			//fix genes_of_user
@@ -78,7 +81,7 @@
 				mysqli_query($dbc, $query) or die('Error insert into user\'s own table');
 			}else{ //update old gene
 				$msg='Existing gene mutated.';
-				$query="UPDATE genes_of_user_$u_id SET g_expression='$g_expression' WHERE g_id='$g_id'";
+				$query="UPDATE genes_of_user_$u_id SET g_expression='$g_expression', g_update_time=NOW() WHERE g_id='$g_id'";
 				mysqli_query($dbc, $query) or die('Error update into user\'s own table');
 			}
 

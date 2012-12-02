@@ -17,6 +17,7 @@
 	//check if logged in
 	if (isset($_SESSION['u_id'])){
 		echo '<p>Welcome ' . $_SESSION['u_name'] . '.</p>';
+		//display 20 latest updated genes
 	}else{
 		echo '<p>Welcome to Project G.</p>';
 	}

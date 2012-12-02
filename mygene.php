@@ -30,18 +30,26 @@
 
 		//get all genes under this user
 		$u_id=$_SESSION['u_id'];
-		$query="SELECT genes.g_name, genes_of_user_$u_id.g_expression FROM genes INNER JOIN genes_of_user_$u_id ON genes.g_id=genes_of_user_$u_id.g_id";
+		$query="SELECT genes.g_name, genes_of_user_$u_id.g_expression, genes_of_user_$u_id.g_update_time" .
+			   " FROM genes INNER JOIN genes_of_user_$u_id" . 
+			   " ON genes.g_id=genes_of_user_$u_id.g_id" .
+			   " ORDER BY genes_of_user_$u_id.g_update_time DESC";
 		$data=mysqli_query($dbc, $query) or die('Error retrieving user\'s genes');
 		echo '<table border="0">';
-		echo '<tr><th>Gene</th><th>Expression</th></tr>';
+		echo '<tr><th>Gene</th><th>Expression</th><th>Last Mutation</tr>';
 		while($row = mysqli_fetch_array($data)){
 			echo '<tr>';
 			echo '<td>';
+			echo '(<a href="evolve.php?g_name=' . $row['g_name'] . '">evolve</a>)';
 			echo $row['g_name'];
 			echo '</td>';
 			echo '<td>';
 			echo $row['g_expression'];
 			echo '</td>';
+			echo '<td>';
+			echo $row['g_update_time'];
+			echo '</td>';
+			echo '</tr>';
 		}	
 		echo '</table>';
 	}

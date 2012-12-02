@@ -42,14 +42,16 @@
 				$row=mysqli_fetch_array($data);
 				$u_id=$row['u_id'];
 	
-				$query= "SELECT genes.g_name, genes_of_user_$u_id.g_expression FROM genes INNER JOIN genes_of_user_$u_id" . 
-						" ON genes_of_user_$u_id.g_id = genes.g_id";
+				$query= "SELECT genes.g_name, genes_of_user_$u_id.g_expression, genes_of_user_$u_id.g_update_time" .
+						" FROM genes INNER JOIN genes_of_user_$u_id" . 
+						" ON genes_of_user_$u_id.g_id = genes.g_id" .
+						" ORDER BY genes_of_user_$u_id.g_update_time DESC";
 				$data=mysqli_query($dbc, $query) or die ('Error retrieving user\'s genes');
 				echo '<p> Genes of ' . $u_name ;
 				echo '<a href="compare.php?u_name=' . $u_name . '&submit=Compare">(compare)</a>';
 				echo '</p>';
 				echo '<table boarder="0">';
-				echo '<tr><th>Gene</th><th>Expression</th>';
+				echo '<tr><th>Gene</th><th>Expression</th><th>Last Mutation</th>';
 				while($row = mysqli_fetch_array($data)){
 					echo '<tr>';
 					echo '<td>';
@@ -57,6 +59,7 @@
 					echo $row['g_name'];
 					echo '</td>';
 					echo '<td>'. $row['g_expression'] . '</td>';
+					echo '<td>'. $row['g_update_time'] . '</td>';
 					echo '</tr>';
 				}
 				echo '</table>';
@@ -78,14 +81,16 @@
 				$row=mysqli_fetch_array($data);
 				$g_id=$row['g_id'];
 
-				$query= "SELECT users.u_id, users.u_name FROM users INNER JOIN users_of_gene_$g_id" . 
-						" ON users_of_gene_$g_id.u_id = users.u_id";
+				$query= "SELECT users.u_id, users.u_name, users_of_gene_$g_id.g_update_time" .
+						" FROM users INNER JOIN users_of_gene_$g_id" . 
+						" ON users_of_gene_$g_id.u_id = users.u_id" .
+						" ORDER BY users_of_gene_$g_id.g_update_time DESC";
 				$data=mysqli_query($dbc, $query) or die ('Error retrieving user\'s genes');
 				echo '<p> Owners of ' . $g_name;
 				echo '<a href="evolve.php?g_name=' . $g_name . '">(evolve)</a>';
 				echo '</p>';
 				echo '<table boarder="0">';
-				echo '<tr><th>User</th><th>Expression<th>';
+				echo '<tr><th>User</th><th>Expression</th><th>Last Mutation</th>';
 				while($row = mysqli_fetch_array($data)){
 					echo '<tr>';
 					echo '<td>';
@@ -96,13 +101,15 @@
 					echo '</td>';
 					//get the last expression of u_name on this gene
 					$u_id=$row['u_id'];
-					$inner_query="SELECT g_expression FROM genes_of_user_$u_id WHERE g_id=$g_id ORDER BY g_expression DESC LIMIT 1";  //fix: order by time
+					$inner_query="SELECT g_expression FROM genes_of_user_$u_id WHERE g_id=$g_id";  //fix: order by time
 					$inner_data=mysqli_query($dbc, $inner_query) or die ('Error retrieving expression');
 					$inner_row=mysqli_fetch_array($inner_data);
 					$g_expression=$inner_row['g_expression'];
 					echo '<td>';
 					echo $g_expression;
 					echo '</td>';
+					echo '<td>';
+					echo $row['g_update_time'];
 					echo '</tr>';
 				}
 				echo '</table>';
