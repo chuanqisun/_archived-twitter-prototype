@@ -44,6 +44,13 @@
 				//insert into gene bank
 				$query="INSERT INTO genes (g_name) VALUES ('$g_name')";
 				mysqli_query($dbc, $query);
+			}else{
+
+				//update g_update_time
+				$row=mysqli_fetch_array($data);
+				$g_id=$row['g_id'];
+				$query="UPDATE genes SET g_update_time=NOW() WHERE g_id='$g_id'";
+				mysqli_query($dbc, $query) or die ('Error update genes');
 			}
 
 
