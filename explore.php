@@ -55,7 +55,9 @@
 				while($row = mysqli_fetch_array($data)){
 					echo '<tr>';
 					echo '<td>';
-					echo '(<a href="evolve.php?g_name=' . $row['g_name'] . '">evolve</a>)';
+					echo '(<a href="explore.php?type=g_name&name=' . $row['g_name'] . '&submit=Explore">explore</a>';
+					echo '|';
+					echo '<a href="evolve.php?g_name=' . $row['g_name'] . '">evolve</a>)';
 					echo $row['g_name'];
 					echo '</td>';
 					echo '<td>'. $row['g_expression'] . '</td>';

@@ -42,14 +42,15 @@
 			if ($checkgene == 0) {  //fresh gene
 
 				//insert into gene bank
-				$query="INSERT INTO genes (g_name) VALUES ('$g_name')";
+				$query="INSERT INTO genes (g_name, g_expression_count) VALUES ('$g_name', '1')";
 				mysqli_query($dbc, $query);
 			}else{
 
 				//update g_update_time
 				$row=mysqli_fetch_array($data);
 				$g_id=$row['g_id'];
-				$query="UPDATE genes SET g_update_time=NOW() WHERE g_id='$g_id'";
+				$g_expression_count=$row['g_expression_count'] + 1;
+				$query="UPDATE genes SET g_update_time=NOW() , g_expression_count=$g_expression_count WHERE g_id='$g_id'";
 				mysqli_query($dbc, $query) or die ('Error update genes');
 			}
 
