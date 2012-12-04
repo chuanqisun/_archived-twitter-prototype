@@ -25,7 +25,7 @@
 		$data=mysqli_query($dbc, $query) or die ('Error fetching genes');
 		echo '<p>Most Popular</p>';
 		echo '<table boarder="0">';
-		echo '<tr><th>Gene</th><th>Population</th><th>Last Mutation</th>';
+		echo '<tr><th>Gene</th><th>Variation</th><th>Last Mutation</th>';
 		while($row = mysqli_fetch_array($data)){
 			echo '<tr>';
 			echo '<td>';
