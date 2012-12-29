@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 29, 2012 at 09:29 PM
+-- Generation Time: Dec 29, 2012 at 10:44 PM
 -- Server version: 5.5.29-log
 -- PHP Version: 5.4.10
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `genes` (
   `g_id` int(11) NOT NULL AUTO_INCREMENT,
   `g_name` varchar(255) NOT NULL,
   `g_expression_count` int(11) NOT NULL,
-  `g_update_time` datetime NOT NULL,
+  `g_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`g_id`),
   UNIQUE KEY `g_name` (`g_name`),
   UNIQUE KEY `g_id` (`g_id`)
