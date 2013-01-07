@@ -60,8 +60,8 @@
 			while($row = mysqli_fetch_array($data)){
 				echo '<tr>';
 				echo '<td>' . $row['g_name'] . '</td>';
-				echo '<td>' . $row['g_expression1'] . '</td>';
 				echo '<td>' . $row['g_expression2'] . '</td>';
+				echo '<td>' . $row['g_expression1'] . '</td>';
 				echo '</tr>';
 			}
 		echo '</table>';
